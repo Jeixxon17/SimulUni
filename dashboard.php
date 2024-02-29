@@ -1,79 +1,78 @@
 <?php
+session_start();
 
-    session_start();
+if (!isset($_SESSION['nombre'])) {
+    echo '<script>alert("No se ha iniciado sesión");</script>';
+    header("location: index.php");
+    exit();
+}
 
-    if (!isset($_SESSION['nombre'])) {
-        echo '<script>
-                alert("No se ha iniciado sesion");
-            </script>';
-            header("location: index.php");
-            session_destroy();
-            die();
-    }
-
-    if (isset($_POST['logout'])) {
-        session_unset();
-        session_destroy();
-        header("location: index.php");
-        exit();
-    }
-
+if (isset($_POST['logout'])) {
+    session_unset();
+    session_destroy();
+    header("location: index.php");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <title>Dashboard | By Code Info</title>
-      <link rel="stylesheet" href="style/style.css" />
-      <!-- Font Awesome Cdn Link -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-    </head>
-    <body>
-      <div class="container">
-        <nav>
-          <ul>
-            <li><a href="#" class="logo">
-              <img src="/logo.jpg" alt="">
-              <span class="nav-item">DashBoard</span>
-            </a></li>
-            <li><a href="#">
-              <i class="fas fa-home"></i>
-              <span class="nav-item">Home</span>
-            </a></li>
-            <li><a href="">
-              <i class="fas fa-user"></i>
-              <span class="nav-item">Profile</span>
-            </a></li>
-            <li><a href="">
-              <i class="fas fa-wallet"></i>
-              <span class="nav-item">Wallet</span>
-            </a></li>
-            <li><a href="">
-              <i class="fas fa-chart-bar"></i>
-              <span class="nav-item">Analytics</span>
-            </a></li>
-            <li><a href="">
-              <i class="fas fa-tasks"></i>
-              <span class="nav-item">Tasks</span>
-            </a></li>
-            <li><a href="">
-              <i class="fas fa-cog"></i>
-              <span class="nav-item">Settings</span>
-            </a></li>
-            <li><a href="">
-              <i class="fas fa-question-circle"></i>
-              <span class="nav-item">Help</span>
-            </a></li>
-            <li><a href="" class="logout">
-              <i class="fas fa-sign-out-alt"></i>
-              <span class="nav-item">Log out</span>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard | By Code Info</title>
+  <link rel="stylesheet" href="style/style.css" />
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+</head>
+<body>
+  <div class="container">
+    <form method="post" style="display: none;" id="logoutForm">
+        <input type="hidden" name="logout" value="1">
+    </form>
+    <nav>
+      <ul>
+        <li><a href="#" class="logo">
+          <img src="/logo.jpg" alt="">
+          <span class="nav-item">DashBoard</span>
+        </a></li>
+        <li><a href="#">
+          <i class="fas fa-home"></i>
+          <span class="nav-item">Home</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-user"></i>
+          <span class="nav-item">Profile</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-wallet"></i>
+          <span class="nav-item">Wallet</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-chart-bar"></i>
+          <span class="nav-item">Analytics</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-tasks"></i>
+          <span class="nav-item">Tasks</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-cog"></i>
+          <span class="nav-item">Settings</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-question-circle"></i>
+          <span class="nav-item">Help</span>
+        </a></li>
+        <li><a href="#" class="logout" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-item">Log out</span>
             </a></li>
           </ul>
         </nav>
     
         <section class="main">
           <div class="main-top">
-            <h1>Skills</h1>
+            <h1>!Hola <?php echo $_SESSION['nombre'] ?>¡ </h1>
             <i class="fas fa-user-cog"></i>
           </div>
           <div class="main-skills">
