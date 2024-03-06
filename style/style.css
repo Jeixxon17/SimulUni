@@ -8,6 +8,13 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+#body-login{
+  background: #fff;
+  background-image: url(../img/Omnicred.jpeg);
+  background-position: right top; 
+  background-size: auto 100%; 
+  background-repeat: no-repeat; 
+}
 body{
   background: #dfe9f5;
 }
@@ -153,6 +160,7 @@ a:hover{
 .course-box .course{
   display: flex;
 }
+
 .box{
   width: 33%;
   padding: 10px;
@@ -161,10 +169,42 @@ a:hover{
   background: rgb(235, 233, 233);
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
+
+/* Dashboard */
+.main-dashboard{
+  margin-top:20px ;
+  text-transform: capitalize;
+}
+
+.main-box{
+  width: 100%;
+  height: auto 100%;
+  padding: 10px 10px 30px 10px;
+  margin-top: 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.box-dashboard{
+  width: 99%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  background: rgb(235, 233, 233);}
+
+.box-dashboard p{
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Fin CSS-Style Dashboard */
+
 .box p{
   font-size: 12px;
   margin-top: 5px;
 }
+
 .box button{
   background: #000;
   color: #fff;
@@ -204,7 +244,7 @@ a:hover{
 main{
     width: 350px;
     height: 480px;
-    background: rgb(111, 128, 224);
+    background: rgb(225, 226, 233);
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 5px 30px 50px black;
@@ -221,7 +261,7 @@ main{
 }
 
 label{
-    color: white;
+    color: #000;
     font-size: 35px;
     justify-content: center;
     display: flex;
@@ -240,7 +280,7 @@ input{
     display: flex;
     margin: 18px auto;
     padding: 10px;
-    border: none;
+    border: 2px solid black;
     outline: none;
     border-radius: 50px;
 }
@@ -252,7 +292,7 @@ button{
     justify-content: center;
     display: block;
     color: white;
-    background: rgb(43, 83, 194);
+    background: black;
     font-size: 20px;
     font-weight: bold;
     margin-top: 18px;
@@ -261,23 +301,25 @@ button{
     border-radius: 10px;
     transition: .3s ease-in;
     cursor: pointer;
-    box-shadow: 5px 20px 40px black;
+    box-shadow: 5px 20px 40px rgb(100, 101, 109);;
 }
 
 button:hover{
-    background: rgb(20, 57, 105);
+  color: black;
+  background: white;
+  transition: 0.5s all;
 }
 
 .login{
     height: 460px;
-    background: #eee;
+    background: rgb(216, 216, 216);
     border-radius: 60% / 10%;
     transform: translateY(-180px);
     transition: .8s ease-in-out;
 }
 
 .login label{
-    color: #573b8a;
+    color: black;
     transform: scale(.6);
 }
 

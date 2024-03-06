@@ -5,8 +5,9 @@
     <html lang="en">
     <head>
       <meta charset="UTF-8" />
-      <title>Dashboard | By Code Info</title>
+      <title>OmniCred | Inicio</title>
       <link rel="stylesheet" href="style/style.css" />
+      <link rel="shortcut icon" href="img/Omnicred.ico" type="image/x-icon">
       <!-- Font Awesome Cdn Link -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     </head>
@@ -35,4 +36,5 @@
             </div>
         </main>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </html>

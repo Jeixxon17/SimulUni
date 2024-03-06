@@ -30,4 +30,4 @@ if ($result->num_rows === 1) {
 
 $stmt->close();
 $conexionDB->close();
-?>
+

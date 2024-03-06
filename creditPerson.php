@@ -19,7 +19,7 @@ if (isset($_POST['logout'])) {
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Omnicred | Dashboard</title>
+  <title>Credito Personal | OmniCred</title>
   <link rel="stylesheet" href="style/style.css" />
   <link rel="shortcut icon" href="img/Omnicred.ico" type="image/x-icon">
   <!-- Font Awesome Cdn Link -->
@@ -64,24 +64,38 @@ if (isset($_POST['logout'])) {
         </nav>
     
         <section class="main">
-    <div class="main-top">
-        <h1>¡Hola <?php echo $_SESSION['nombre']; ?>!</h1>
-    </div>
-    <section class="main-dashboard">
-        <div class="main-box">
-            <h1>Bienvenido a nuestro simulador de crédito</h1>
-                <div class="box-dashboard">
-                    <h2>¿Qué hacemos?</h2>
-                    <p>Proporcionamos un servicio de simulación de créditos que incluye diferentes tipos, como créditos personales, hipotecarios y automotrices. Nuestra plataforma te permite calcular el plan de amortización de tu préstamo, visualizar los resultados de la simulación y comparar diferentes escenarios para tomar decisiones financieras informadas.</p>
-                    <div class="box">
-                      <a href="creditPerson.php"><i class="fas fa-wallet"></i></a>
-                      <h2>Credito Personal</h2>
-                    </div>
+          <div class="main-top">
+            <h1>!Hola <?php echo $_SESSION['nombre'] ?>¡ </h1>
+          </div>
+          <div class="main-skills">
+            <div class="card">
+              <i class="fas fa-laptop-code"></i>
+              <h3>Web developemt</h3>
+              <p>Join Over 1 million Students.</p>
+              <button>Get Started</button>
+            </div>
+          </div>
+    
+          <section class="main-course">
+            <h1>My courses</h1>
+            <div class="course-box">
+              <ul>
+                <li class="active">In progress</li>
+                <li>explore</li>
+                <li>incoming</li>
+                <li>finished</li>
+              </ul>
+              <div class="course">
+                <div class="box">
+                  <h3>HTML</h3>
+                  <p>80% - progress</p>
+                  <button>continue</button>
+                  <i class="fab fa-html5 html"></i>
                 </div>
-        </div>
-    </section>
-</section>
-
+              </div>
+            </div>
+          </section>
+        </section>
       </div>
     </body>
     </html></span>
