@@ -52,7 +52,7 @@ if (isset($_POST['logout'])) {
         <i class="fas fa-car"></i>
           <span class="nav-item">Credito Automotriz</span>
         </a></li>
-        <li><a href="">
+        <li><a href="configuration.php">
           <i class="fas fa-cog"></i>
           <span class="nav-item">Configuracion</span>
         </a></li>

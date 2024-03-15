@@ -27,7 +27,7 @@
         </form>
     </div>
     <div class="login">
-        <form action="php/iniciarsesion.php" method="post">
+        <form id="iniciar-form">
             <label for="chk" aria-hidden="true">Inicia Sesion</label>
             <input type="email" name="email" placeholder="Ingrese su correo" required>
             <input type="password" name="contra" placeholder="Ingrese su contraseña" required>

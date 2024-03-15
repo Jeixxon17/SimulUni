@@ -6,7 +6,7 @@ $emailUser = $_POST['email'];
 $passwordUser = $_POST['contra'];
 
 // Consulta preparada para evitar inyección SQL
-$stmt = $conexionDB->prepare("SELECT id, nombre, contrasena FROM usuarios WHERE email = ?");
+$stmt = $conexionDB->prepare("SELECT id, nombre, email, contrasena FROM usuarios WHERE email = ?");
 $stmt->bind_param("s", $emailUser);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -17,15 +17,16 @@ if ($result->num_rows === 1) {
     if (password_verify($passwordUser, $row['contrasena'])) {
         $_SESSION['usuario_id'] = $row['id'];
         $_SESSION['nombre'] = $row['nombre'];
-        header("location: ../dashboard.php");
+        $_SESSION['email'] = $row['email'];
+        echo 'exito';
         exit;
     } else {
         // Contraseña incorrecta
-        echo '<script>alert("La contraseña es incorrecta");window.location = "../index.php";</script>';
+        echo 'La contraseña es incorrecta';
     }
 } else {
     // Usuario no encontrado
-    echo '<script>alert("El usuario no fue encontrado");window.location = "../index.php";</script>';
+    echo 'El usuario no fue encontrado';
 }
 
 $stmt->close();
