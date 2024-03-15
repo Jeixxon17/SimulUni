@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700");
-*{
+
+* {
   margin: 0;
   padding: 0;
   outline: none;
@@ -8,20 +9,24 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-#body-login{
+
+#body-login {
   background: #fff;
   background-image: url(../img/Omnicred.jpeg);
-  background-position: right top; 
-  background-size: auto 100%; 
-  background-repeat: no-repeat; 
+  background-position: right top;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
 }
-body{
+
+body {
   background: #dfe9f5;
 }
-.container{
+
+.container {
   display: flex;
 }
-nav{
+
+nav {
   position: relative;
   top: 0;
   bottom: 0;
@@ -32,23 +37,27 @@ nav{
   overflow: hidden;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
-.logo{
+
+.logo {
   text-align: center;
   display: flex;
   margin: 10px 0 0 10px;
 }
-.logo img{
+
+.logo img {
   width: 45px;
   height: 45px;
   border-radius: 50%;
 }
-.logo span{
+
+.logo span {
   font-weight: bold;
   padding-left: 15px;
   font-size: 18px;
   text-transform: uppercase;
 }
-a{
+
+a {
   position: relative;
   color: rgb(85, 83, 83);
   font-size: 14px;
@@ -56,7 +65,8 @@ a{
   width: 280px;
   padding: 10px;
 }
-nav .fas{
+
+nav .fas {
   position: relative;
   width: 70px;
   height: 40px;
@@ -64,30 +74,35 @@ nav .fas{
   font-size: 20px;
   text-align: center;
 }
-.nav-item{
+
+.nav-item {
   position: relative;
   top: 12px;
   margin-left: 10px;
 }
-a:hover{
+
+a:hover {
   background: #eee;
 }
-.logout{
+
+.logout {
   position: absolute;
   bottom: 0;
 }
 
 /* Main Section */
-.main{
+.main {
   position: relative;
   padding: 20px;
   width: 100%;
 }
-.main-top{
+
+.main-top {
   display: flex;
   width: 100%;
 }
-.main-top i{
+
+/* .main-top i{
   position: absolute;
   right: 0;
   margin: 10px 30px;
@@ -128,14 +143,15 @@ a:hover{
 .main-skills .card i{
   font-size: 22px;
   padding: 10px;
-}
+} */
 
 /* Courses */
-.main-course{
-  margin-top:20px ;
+.main-course {
+  margin-top: 20px;
   text-transform: capitalize;
 }
-.course-box{
+
+.course-box {
   width: 100%;
   height: 300px;
   padding: 10px 10px 30px 10px;
@@ -144,24 +160,28 @@ a:hover{
   border-radius: 10px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
-.course-box ul{
+
+.course-box ul {
   list-style: none;
   display: flex;
 }
-.course-box ul li{
+
+.course-box ul li {
   margin: 10px;
   color: gray;
   cursor: pointer;
 }
-.course-box ul .active{
+
+.course-box ul .active {
   color: #000;
   border-bottom: 1px solid #000;
 }
-.course-box .course{
+
+.course-box .course {
   display: flex;
 }
 
-.box{
+.box {
   width: 33%;
   padding: 10px;
   margin: 10px;
@@ -170,13 +190,124 @@ a:hover{
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
 
+/* Iniciar Sesion */
+#body-login {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+main {
+  width: 350px;
+  height: 480px;
+  background: rgb(225, 226, 233);
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 5px 30px 50px black;
+}
+
+#chk {
+  display: none;
+}
+
+.signup {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+label {
+  color: #000;
+  font-size: 35px;
+  justify-content: center;
+  display: flex;
+  margin: 60px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 60%;
+  height: 40px;
+  background: white;
+  justify-content: center;
+  display: flex;
+  margin: 18px auto;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+}
+
+button {
+  width: 60%;
+  height: 40px;
+  margin: 10px auto;
+  justify-content: center;
+  display: block;
+  color: white;
+  background: black;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 18px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  transition: .3s ease-in;
+  cursor: pointer;
+  box-shadow: 5px 20px 40px rgb(100, 101, 109);
+  ;
+}
+
+button:hover {
+  color: black;
+  background: white;
+  transition: 0.5s all;
+}
+
+.login {
+  height: 460px;
+  background: rgb(216, 216, 216);
+  border-radius: 60% / 10%;
+  transform: translateY(-180px);
+  transition: .8s ease-in-out;
+}
+
+.login label {
+  color: black;
+  transform: scale(.6);
+}
+
+.login p {
+  text-align: center;
+  padding: 20px;
+}
+
+#chk:checked~.login {
+  transform: translateY(-500px);
+}
+
+#chk:checked~.login label {
+  transform: scale(1);
+}
+
+#chk:checked~.signup label {
+  transform: scale(.6);
+}
+
 /* Dashboard */
-.main-dashboard{
-  margin-top:20px ;
+.main-dashboard {
+  margin-top: 20px;
   text-transform: capitalize;
 }
 
-.main-box{
+.main-box {
   width: 100%;
   height: auto 100%;
   padding: 10px 10px 30px 10px;
@@ -186,26 +317,126 @@ a:hover{
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
 
-.box-dashboard{
+.box-dashboard {
   width: 99%;
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
-  background: rgb(235, 233, 233);}
+  background: rgb(235, 233, 233);
+}
 
-.box-dashboard p{
+.box-dashboard p {
   font-size: 1rem;
   margin-top: 10px;
 }
 
 /* Fin CSS-Style Dashboard */
 
-.box p{
+/* Credito Personal */
+.main-credit {
+  width: 100%;
+  /* Cambio añadido */
+  display: flex;
+  flex-wrap: wrap;
+  /* Cambio añadido */
+  justify-content: space-around;
+  /* Cambio añadido */
+  align-items: center;
+  /* Cambio añadido */
+}
+
+.credit {
+  width: 30%;
+  margin: 2px;
+  text-align: center;
+}
+
+.credit label {
+  font-size: 14px;
+  display: block;
+  /* Convertir label en bloque para ocupar toda la línea */
+}
+
+.credit input[type="text"],
+.credit input[type="number"] {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 75%;
+  display: inline-block;
+  /* Convertir input en bloque en línea */
+  vertical-align: middle;
+  /* Alinear verticalmente con label */
+  border-bottom: 2px solid #000;
+  /* Añadir borde solo en la parte inferior */
+}
+
+.credit select {
+  width: 75%;
+  /* Ajustar el ancho del select */
+  padding: 5px;
+  /* Añadir relleno para espacio interior */
+  border: none;
+  /* Quitar el borde predeterminado */
+  outline: none;
+  /* Quitar el contorno al hacer foco */
+  background-color: transparent;
+  /* Hacer transparente el fondo */
+  appearance: none;
+  /* Quitar los estilos predeterminados del navegador */
+  -webkit-appearance: none;
+  /* Para navegadores basados en WebKit */
+  -moz-appearance: none;
+  /* Para navegadores basados en Gecko */
+  border-bottom: 2px solid #000;
+  /* Añadir borde solo en la parte inferior */
+  cursor: pointer;
+}
+
+.credit select option {
+  background-color: #fff;
+  /* Añadir color de fondo a las opciones */
+}
+
+.credit p {
+  display: inline-block;
+  /* Convertir <p> en bloque en línea */
+  margin-left: 5px;
+  vertical-align: middle;
+  /* Alinear verticalmente con input */
+}
+
+.main-credit button {
+  position: absolute;
+  width: 30%;
+  height: 50px;
+  color: white;
+  background: black;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 500px;
+  border: none;
+  border-radius: 10px;
+  transition: .3s ease-in;
+  cursor: pointer;
+  box-shadow: 5px 20px 40px rgb(100, 101, 109);
+  ;
+}
+
+.main-credit button:hover {
+  color: black;
+  background: white;
+  transition: 0.5s all;
+}
+
+/* Fin CSS-Style Credito personal */
+
+.box p {
   font-size: 12px;
   margin-top: 5px;
 }
 
-.box button{
+.box button {
   background: #000;
   color: #fff;
   padding: 7px 10px;
@@ -213,129 +444,25 @@ a:hover{
   margin-top: 3rem;
   cursor: pointer;
 }
-.box button:hover{
+
+.box button:hover {
   background: rgba(0, 0, 0, 0.842);
 }
-.box i{
+
+.box i {
   font-size: 7rem;
   float: right;
   margin: -20px 20px 20px 0;
 }
-.html{
+
+.html {
   color: rgb(25, 94, 54);
 }
-.css{
+
+.css {
   color: rgb(104, 179, 35);
 }
-.js{
+
+.js {
   color: rgb(28, 98, 179);
-}
-
-/* Iniciar Sesion */
-#body-login{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-main{
-    width: 350px;
-    height: 480px;
-    background: rgb(225, 226, 233);
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 5px 30px 50px black;
-}
-
-#chk{
-    display: none;
-}
-
-.signup{
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-label{
-    color: #000;
-    font-size: 35px;
-    justify-content: center;
-    display: flex;
-    margin: 60px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .5s ease-in-out;
-    margin-bottom: 10px;
-}
-
-input{
-    width: 60%;
-    height: 40px;
-    background: white;
-    justify-content: center;
-    display: flex;
-    margin: 18px auto;
-    padding: 10px;
-    border: 2px solid black;
-    outline: none;
-    border-radius: 50px;
-}
-
-button{
-    width: 60%;
-    height: 40px;
-    margin: 10px auto;
-    justify-content: center;
-    display: block;
-    color: white;
-    background: black;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 18px;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    transition: .3s ease-in;
-    cursor: pointer;
-    box-shadow: 5px 20px 40px rgb(100, 101, 109);;
-}
-
-button:hover{
-  color: black;
-  background: white;
-  transition: 0.5s all;
-}
-
-.login{
-    height: 460px;
-    background: rgb(216, 216, 216);
-    border-radius: 60% / 10%;
-    transform: translateY(-180px);
-    transition: .8s ease-in-out;
-}
-
-.login label{
-    color: black;
-    transform: scale(.6);
-}
-
-.login p{
-    text-align: center;
-    padding: 20px;
-}
-
-#chk:checked ~ .login{
-    transform: translateY(-500px);
-}
-
-#chk:checked ~ .login label{
-    transform: scale(1);
-}
-
-#chk:checked ~ .signup label{
-    transform: scale(.6);
 }

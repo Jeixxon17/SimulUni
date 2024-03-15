@@ -71,9 +71,10 @@ if (isset($_POST['logout'])) {
         <div class="main-box">
             <h1>Bienvenido a nuestro simulador de crédito</h1>
                 <div class="box-dashboard">
-                    <h2>¿Qué hacemos?</h2>
-                    <p>Proporcionamos un servicio de simulación de créditos que incluye diferentes tipos, como créditos personales, hipotecarios y automotrices. Nuestra plataforma te permite calcular el plan de amortización de tu préstamo, visualizar los resultados de la simulación y comparar diferentes escenarios para tomar decisiones financieras informadas.</p>
-                    <div class="box">
+                <h3>Esto es OmniCred Simulation</h3>
+                    <p>En nuestro Simulador de Crédito, estamos aquí para ayudarte a tomar decisiones financieras inteligentes y bien informadas. Ya sea que estés buscando un crédito personal, hipotecario o automotriz, nuestra plataforma te brinda las herramientas necesarias para entender tus opciones y encontrar la mejor solución para tus necesidades.</p>
+                    <p>Con nuestra interfaz fácil de usar y nuestros poderosos cálculos, podrás visualizar rápidamente cómo diferentes variables, como el monto del préstamo, la tasa de interés y el plazo, afectan tus pagos mensuales y el total de intereses pagados. ¡Prepárate para tomar el control de tus finanzas!</p>
+                <div class="box">
                       <a href="creditPerson.php"><i class="fas fa-wallet"></i></a>
                       <h2>Credito Personal</h2>
                     </div>

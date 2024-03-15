@@ -15,7 +15,7 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     // El correo electrónico ya está registrado
-    echo '<script>alert("Este correo ya está registrado. Por favor, utiliza otro correo.");window.location = "../index.php";</script>';
+    echo "Este correo ya está registrado. Por favor, utiliza otro correo.";
 } else {
     // Si las contraseñas coinciden, proceder con el registro
     if ($confirmPass === $passwordUser) {
@@ -24,15 +24,15 @@ if ($result->num_rows > 0) {
         $execute = mysqli_query($conexionDB, $query);
 
         if ($execute) {
-            echo '<script>alert("Usuario Ingresado Correctamente");window.location = "../index.php";</script>';
+            echo 'exito'; // Registro exitoso
         } else {
-            echo '<script>alert("Error al registrar usuario. Por favor, inténtalo de nuevo.");window.location = "../index.php";</script>';
+            echo 'Error al registrar usuario. Por favor, inténtalo de nuevo.';
         }
     } else {
         // Las contraseñas no coinciden
-        echo '<script>alert("Las Contraseñas No Coinciden");window.location = "../index.php";</script>';
+        echo 'Las Contraseñas No Coinciden';
     }
 }
 
 mysqli_close($conexionDB);
-
+?>
