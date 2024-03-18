@@ -46,11 +46,11 @@ if (isset($_POST['logout'])) {
             <i class="fas fa-wallet"></i>
             <span class="nav-item">Credito Personal</span>
           </a></li>
-        <li><a href="">
+        <li><a href="creditHouse.php">
             <i class="fas fa-home"></i>
             <span class="nav-item">Credito Hipotecario</span>
           </a></li>
-        <li><a href="">
+        <li><a href="creditCar.php">
             <i class="fas fa-car"></i>
             <span class="nav-item">Credito Automotriz</span>
           </a></li>
@@ -67,63 +67,76 @@ if (isset($_POST['logout'])) {
 
     <section class="main">
       <div class="main-top">
-        <h1>Simula tu crédito personal</h1>
+        <h1>Simula tu crédito hipotecario</h1>
       </div>
       <div class="main-credit">
         <div class="credit">
-          <label for="" class="label-credit">Monto Préstamo <i class="fas fa-question-circle" id="montoPrestamoTippy"></i></label>
-          <p>$</p><input type="text" id="montoPrestamo" class="input-credit">
+          <label for="valorPropiedad" class="label-credit">Valor de la Propiedad</label>
+          <p>$</p><input type="number" id="valorPropiedad" class="input-credit">
         </div>
         <div class="credit">
-          <label for="" class="label-credit">Tasa de Interés <i class="fas fa-question-circle" id="tasaInteres"></i></label>
-          <input type="number" class="input-credit">
+          <label for="cuotaInicialHipotecario" class="label-credit">Cuota Inicial</label>
+          <p>$</p><input type="number" id="cuotaInicialHipotecario" class="input-credit">
+        </div>
+        <div class="credit">
+          <label for="plazoHipotecario" class="label-credit">Plazo del Crédito (Años)</label>
+          <select id="plazoHipotecario" class="input-credit">
+            <option value="5">5 años</option>
+            <option value="10">10 años</option>
+            <option value="15">15 años</option>
+            <option value="20">20 años</option>
+            <option value="25">25 años</option>
+            <option value="30">30 años</option>
+          </select>
+        </div>
+        <div class="credit">
+          <label for="tasaHipotecaria" class="label-credit">Tasa de Interés</label>
+          <input type="number" id="tasaHipotecaria" class="input-credit" min="0.01" step="0.01">
           <p>%</p>
         </div>
-        <div class="credit">
-          <label for="" class="label-credit">Plazo <i class="fas fa-question-circle" id="plazoMensual"></i></label>
-          <select name="" id="" class="input-credit">
-            <option value="0">Elige el plazo</option>
-            <option value="">1 mes</option>
-            <option value="">2 mes</option>
-            <option value="">3 mes</option>
-            <option value="">4 mes</option>
-          </select>
-        </div>
-        <div class="credit">
-          <label for="" class="label-credit">Frecuencia de pago <i class="fas fa-question-circle" id="frecuenciaPago"></i></label>
-          <select name="" id="" class="input-credit">
-            <option value="0">Elige la frecuencia de pago</option>
-            <option value="">Diario</option>
-            <option value="">Quincenal</option>
-            <option value="">Mensual</option>
-            <option value="">Anual</option>
-          </select>
-        </div>
-        <button>Generar Simulacion</button>
-      </div>
-  </div>
-
-  <!-- <section class="main-course">
-    <h1>My courses</h1>
-    <div class="course-box">
-      <ul>
-        <li class="active">In progress</li>
-        <li>explore</li>
-        <li>incoming</li>
-        <li>finished</li>
-      </ul>
-      <div class="course">
-        <div class="box">
-          <h3>HTML</h3>
-          <p>80% - progress</p>
-          <button>continue</button>
-          <i class="fab fa-html5 html"></i>
-        </div>
-      </div>
+        <button type="button" onclick="calcularCreditoHipotecario()">Generar Simulación</button>
     </div>
-  </section> -->
-  </section>
-  </div>
+    <div id="resultadoSimulacionHipotecario"></div>
+    <div id="tablaAmortizacionHipotecario"></div>
+
+
+
+  <!-- Tu JavaScript y otros enlaces aquí -->
+  <script>
+
+function calcularCreditoHipotecario() {
+    const valorPropiedad = parseFloat(document.getElementById('valorPropiedad').value);
+    const cuotaInicial = parseFloat(document.getElementById('cuotaInicialHipotecario').value);
+    const monto = valorPropiedad - cuotaInicial;
+    const tasa = parseFloat(document.getElementById('tasaHipotecaria').value) / 100 / 12;
+    const plazo = parseInt(document.getElementById('plazoHipotecario').value) * 12;
+
+    if (isNaN(valorPropiedad) || isNaN(cuotaInicial) || isNaN(monto) || isNaN(tasa) || isNaN(plazo)) {
+        alert('Por favor, completa todos los campos con valores válidos.');
+        return;
+    }
+
+    const cuota = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
+    let saldo = monto;
+    let tabla = '<table><tr><th>Cuota</th><th>Capital</th><th>Interés</th><th>Saldo</th></tr>';
+
+    for (let i = 1; i <= plazo; i++) {
+        let interesPago = saldo * tasa;
+        let capitalPago = cuota - interesPago;
+        saldo -= capitalPago;
+        tabla += `<tr>
+                    <td>${i}</td>
+                    <td>${capitalPago.toFixed(2)}</td>
+                    <td>${interesPago.toFixed(2)}</td>
+                    <td>${saldo.toFixed(2)}</td>
+                  </tr>`;
+    }
+    tabla += '</table>';
+    document.getElementById('tablaAmortizacionHipotecario').innerHTML = tabla;
+}
+
+  </script>
+
   <!-- Principal JavaScript -->
   <script src="js/main.js"></script>
 

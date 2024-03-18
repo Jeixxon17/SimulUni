@@ -46,11 +46,11 @@ if (isset($_POST['logout'])) {
             <i class="fas fa-wallet"></i>
             <span class="nav-item">Credito Personal</span>
           </a></li>
-        <li><a href="">
+        <li><a href="creditHouse.php">
             <i class="fas fa-home"></i>
             <span class="nav-item">Credito Hipotecario</span>
           </a></li>
-        <li><a href="">
+        <li><a href="creditCar.php">
             <i class="fas fa-car"></i>
             <span class="nav-item">Credito Automotriz</span>
           </a></li>
@@ -67,63 +67,75 @@ if (isset($_POST['logout'])) {
 
     <section class="main">
       <div class="main-top">
-        <h1>Simula tu crédito personal</h1>
+        <h1>Simula tu crédito automotriz</h1>
       </div>
       <div class="main-credit">
         <div class="credit">
-          <label for="" class="label-credit">Monto Préstamo <i class="fas fa-question-circle" id="montoPrestamoTippy"></i></label>
-          <p>$</p><input type="text" id="montoPrestamo" class="input-credit">
+          <label for="precioVehiculo" class="label-credit">Precio del Vehículo</label>
+          <p>$</p><input type="number" id="precioVehiculo" class="input-credit">
         </div>
         <div class="credit">
-          <label for="" class="label-credit">Tasa de Interés <i class="fas fa-question-circle" id="tasaInteres"></i></label>
-          <input type="number" class="input-credit">
+          <label for="cuotaInicialAutomotriz" class="label-credit">Cuota Inicial</label>
+          <p>$</p><input type="number" id="cuotaInicialAutomotriz" class="input-credit">
+        </div>
+        <div class="credit">
+          <label for="plazoAutomotriz" class="label-credit">Plazo (Años)</label>
+          <select id="plazoAutomotriz" class="input-credit">
+            <option value="2">2 años</option>
+            <option value="3">3 años</option>
+            <option value="4">4 años</option>
+            <option value="5">5 años</option>
+            <option value="6">6 años</option>
+          </select>
+        </div>
+        <div class="credit">
+          <label for="tasaAutomotriz" class="label-credit">Tasa de Interés</label>
+          <input type="number" id="tasaAutomotriz" class="input-credit" min="0.01" step="0.01">
           <p>%</p>
         </div>
-        <div class="credit">
-          <label for="" class="label-credit">Plazo <i class="fas fa-question-circle" id="plazoMensual"></i></label>
-          <select name="" id="" class="input-credit">
-            <option value="0">Elige el plazo</option>
-            <option value="">1 mes</option>
-            <option value="">2 mes</option>
-            <option value="">3 mes</option>
-            <option value="">4 mes</option>
-          </select>
-        </div>
-        <div class="credit">
-          <label for="" class="label-credit">Frecuencia de pago <i class="fas fa-question-circle" id="frecuenciaPago"></i></label>
-          <select name="" id="" class="input-credit">
-            <option value="0">Elige la frecuencia de pago</option>
-            <option value="">Diario</option>
-            <option value="">Quincenal</option>
-            <option value="">Mensual</option>
-            <option value="">Anual</option>
-          </select>
-        </div>
-        <button>Generar Simulacion</button>
+        <button type="button" onclick="calcularCreditoAutomotriz()">Generar Simulación</button>
       </div>
-  </div>
+<div id="resultadoSimulacionAutomotriz"></div>
+<div id="tablaAmortizacionAutomotriz"></div>
 
-  <!-- <section class="main-course">
-    <h1>My courses</h1>
-    <div class="course-box">
-      <ul>
-        <li class="active">In progress</li>
-        <li>explore</li>
-        <li>incoming</li>
-        <li>finished</li>
-      </ul>
-      <div class="course">
-        <div class="box">
-          <h3>HTML</h3>
-          <p>80% - progress</p>
-          <button>continue</button>
-          <i class="fab fa-html5 html"></i>
-        </div>
-      </div>
-    </div>
-  </section> -->
-  </section>
-  </div>
+
+  <!-- Tu JavaScript y otros enlaces aquí -->
+  <script>
+
+function calcularCreditoAutomotriz() {
+    const precioVehiculo = parseFloat(document.getElementById('precioVehiculo').value);
+    const cuotaInicial = parseFloat(document.getElementById('cuotaInicialAutomotriz').value);
+    const monto = precioVehiculo - cuotaInicial;
+    const tasa = parseFloat(document.getElementById('tasaAutomotriz').value) / 100 / 12;
+    const plazo = parseInt(document.getElementById('plazoAutomotriz').value) * 12;
+
+    if (isNaN(precioVehiculo) || isNaN(cuotaInicial) || isNaN(monto) || isNaN(tasa) || isNaN(plazo)) {
+        alert('Por favor, completa todos los campos con valores válidos.');
+        return;
+    }
+
+    const cuota = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
+    let saldo = monto;
+    let tabla = '<table><tr><th>Cuota</th><th>Capital</th><th>Interés</th><th>Saldo</th></tr>';
+
+    for (let i = 1; i <= plazo; i++) {
+        let interesPago = saldo * tasa;
+        let capitalPago = cuota - interesPago;
+        saldo -= capitalPago;
+        tabla += `<tr>
+                    <td>${i}</td>
+                    <td>${capitalPago.toFixed(2)}</td>
+                    <td>${interesPago.toFixed(2)}</td>
+                    <td>${saldo.toFixed(2)}</td>
+                  </tr>`;
+    }
+    tabla += '</table>';
+    document.getElementById('tablaAmortizacionAutomotriz').innerHTML = tabla;
+}
+
+
+  </script>
+
   <!-- Principal JavaScript -->
   <script src="js/main.js"></script>
 

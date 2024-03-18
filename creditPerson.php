@@ -46,11 +46,11 @@ if (isset($_POST['logout'])) {
             <i class="fas fa-wallet"></i>
             <span class="nav-item">Credito Personal</span>
           </a></li>
-        <li><a href="">
+        <li><a href="creditHouse.php">
             <i class="fas fa-home"></i>
             <span class="nav-item">Credito Hipotecario</span>
           </a></li>
-        <li><a href="">
+        <li><a href="creditCar.php">
             <i class="fas fa-car"></i>
             <span class="nav-item">Credito Automotriz</span>
           </a></li>
@@ -70,10 +70,6 @@ if (isset($_POST['logout'])) {
         <h1>Simula tu crédito personal</h1>
       </div>
       <div class="main-credit">
-        <!-- <div class="credit">
-          <label for="montoPrestamo" class="label-credit">Monto Préstamo<i class="fas fa-question-circle" id="montoPrestamoTippy"></i></label>
-          <p>$</p><input type="number" id="" class="input-credit" name="">
-        </div> -->
         <div class="credit">
           <label for="montoPrestamo" class="label-credit">Monto Préstamo<i class="fas fa-question-circle" id="montoPrestamoTippy"></i></label>
           <p>$</p><input type="number" id="montoPrestamo" class="input-credit" name="monto">
@@ -110,31 +106,6 @@ if (isset($_POST['logout'])) {
 
   <!-- Tu JavaScript y otros enlaces aquí -->
   <script>
-  function calcularCredito() {
-    const monto = document.getElementById('montoPrestamo').value;
-    const tasa = document.getElementById('Interes').value / 100 / 12;
-    const plazo = document.getElementById('plazoCredito').value;
-    const ingresos = parseFloat(document.getElementById('ingresosMensuales').value);
-
-    
-
-    // Validar entradas
-    if (isNaN(monto) || isNaN(tasa) || isNaN(plazo) || isNaN(ingresos)) {
-      alert('Por favor, completa todos los campos con valores válidos.');
-      return;
-    }
-
-    // Cálculo de la cuota mensual
-    const cuota = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
-    const porcentajeIngresos = cuota / ingresos;
-
-    let resultado = `<p>Cuota Mensual: $${cuota.toFixed(2)}</p>`;
-    if (porcentajeIngresos > 0.30) {
-      resultado += `<p style="color: red;">Alerta: La cuota supera el 30% de tus ingresos mensuales.</p>`;
-    }
-
-    document.getElementById('resultadoSimulacion').innerHTML = resultado;
-  }
 
   function calcularCredito() {
     const monto = parseFloat(document.getElementById('montoPrestamo').value);
@@ -176,9 +147,9 @@ if (isset($_POST['logout'])) {
     tabla += '</table>';
 
     const porcentajeIngresos = cuota / ingresos;
-    let resultado = `<p>Cuota Mensual: $${cuota.toFixed(2)}</p>`;
+    let resultado = `<p>Por un crédito de: $${monto}, pagarías una cuota mensual por un valor de: $${cuota.toFixed(2)}</p>`;
     if (porcentajeIngresos > 0.30) {
-        resultado += `<p style="color: red;">Alerta: La cuota supera el 30% de tus ingresos mensuales.</p>`;
+        resultado += `<p style="color: red;">Advertencia: La cuota supera el 30% de tus ingresos mensuales.</p>`;
     }
 
     document.getElementById('resultadoSimulacion').innerHTML = resultado;
