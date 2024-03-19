@@ -33,35 +33,35 @@ if (isset($_POST['logout'])) {
     <nav>
       <ul>
         <li><a href="#" class="logo">
-          <img src="img/Omnicred.jpeg" alt="">
-          <span class="nav-item">OmniCred</span>
-        </a></li>
+            <img src="img/Omnicred.jpeg" alt="">
+            <span class="nav-item">OmniCred</span>
+          </a></li>
         <li><a href="dashboard.php">
-        <i class="fas fa-info-circle"></i>
-          <span class="nav-item">Inicio</span>
-        </a></li>
+            <i class="fas fa-info-circle"></i>
+            <span class="nav-item">Inicio</span>
+          </a></li>
         <li><a href="creditPerson.php">
-        <i class="fas fa-wallet"></i>
-          <span class="nav-item">Credito Personal</span>
-        </a></li>
-        <li><a href="">
-        <i class="fas fa-home"></i>
-          <span class="nav-item">Credito Hipotecario</span>
-        </a></li>
-        <li><a href="">
-        <i class="fas fa-car"></i>
-          <span class="nav-item">Credito Automotriz</span>
-        </a></li>
+            <i class="fas fa-wallet"></i>
+            <span class="nav-item">Credito Personal</span>
+          </a></li>
+        <li><a href="creditHouse.php">
+            <i class="fas fa-home"></i>
+            <span class="nav-item">Credito Hipotecario</span>
+          </a></li>
+        <li><a href="creditCar.php">
+            <i class="fas fa-car"></i>
+            <span class="nav-item">Credito Automotriz</span>
+          </a></li>
         <li><a href="configuration.php">
-          <i class="fas fa-cog"></i>
-          <span class="nav-item">Configuracion</span>
-        </a></li>
+            <i class="fas fa-cog"></i>
+            <span class="nav-item">Configuracion</span>
+          </a></li>
         <li><a href="#" class="logout" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Log out</span>
-            </a></li>
-          </ul>
-        </nav>
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item">Log out</span>
+          </a></li>
+      </ul>
+    </nav>
     
         <section class="main">
     <div class="main-top">

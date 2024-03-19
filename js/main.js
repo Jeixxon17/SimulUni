@@ -13,7 +13,7 @@ function formatCurrency(input) {
 }
 
 // Obtener el campo de entrada
-const inputCredit = document.getElementById('montoPrestamo');
+const inputCredit = document.getElementById('montodPrestamo');
 
 // Escuchar el evento input para formatear el valor mientras se escribe
 inputCredit.addEventListener('input', function () {
