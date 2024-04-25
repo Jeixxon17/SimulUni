@@ -1,20 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['nombre'])) {
-  echo '<script>alert("No se ha iniciado sesión");</script>';
-  header("location: index.php");
-  exit();
-}
-
-if (isset($_POST['logout'])) {
-  session_unset();
-  session_destroy();
-  header("location: index.php");
-  exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,104 +64,100 @@ if (isset($_POST['logout'])) {
         </div>
         <div class="credit">
           <label for="plazoCredito" class="label-credit">Plazo <i class="fas fa-question-circle" id="plazoMensual"></i></label>
-          <input name="plazo" id="plazoCredito" class="input-credit"><p>Meses</p>
+          <input name="plazo" id="plazoCredito" class="input-credit">
+          <p>Meses</p>
         </div>
-        <!-- <div class="credit">
-          <label for="" class="label-credit">Frecuencia de pago <i class="fas fa-question-circle" id="frecuenciaPago"></i></label>
-          <select name="" id="" class="input-credit">
-            <option value="0">Elige la frecuencia de pago</option>
-            <option value="">Diario</option>
-            <option value="">Quincenal</option>
-            <option value="">Mensual</option>
-            <option value="">Anual</option>
-          </select>
-        </div> -->
         <div class="credit">
           <label for="ingresosMensuales" class="label-credit">Ingresos Mensuales</label>
           <p>$</p><input type="number" id="ingresosMensuales" class="input-credit" name="ingresos">
         </div>
+        <input type="hidden" id="tipoCredito" name="tipoCredito" value="1">
         <button type="button" onclick="calcularCredito()">Generar Simulacion</button>
       </div>
       <div id="resultadoSimulacion"></div>
       <div id="tablaAmortizacion"></div>
-
+    </section>
   </div>
 
-  <!-- Tu JavaScript y otros enlaces aquí -->
+  <!-- JavaScript -->
   <script>
+    function calcularCredito() {
+  const monto = parseFloat(document.getElementById('montoPrestamo').value);
+  const tasa = parseFloat(document.getElementById('Interes').value) / 100 / 12;
+  const plazo = parseInt(document.getElementById('plazoCredito').value);
+  const ingresos = parseFloat(document.getElementById('ingresosMensuales').value);
 
-  function calcularCredito() {
-    const monto = parseFloat(document.getElementById('montoPrestamo').value);
-    const tasa = parseFloat(document.getElementById('Interes').value) / 100 / 12; // Asegúrate de que este sea el ID correcto para la tasa de interés
-    const plazo = parseInt(document.getElementById('plazoCredito').value);
-    const ingresos = parseFloat(document.getElementById('ingresosMensuales').value);
+  // Validar entradas
+  if (isNaN(monto) || isNaN(tasa) || isNaN(plazo) || isNaN(ingresos)) {
+    alert('Por favor, completa todos los campos con valores válidos.');
+    return;
+  }
 
-    // Validar entradas
-    if (isNaN(monto) || isNaN(tasa) || isNaN(plazo) || isNaN(ingresos)) {
-        alert('Por favor, completa todos los campos con valores válidos.');
-        return;
+  // Cálculo de la cuota mensual
+  const cuota = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
+  let saldo = monto;
+
+  // Preparar la tabla de amortización
+  let tabla = '<div class="tbl-header"><table cellpadding="0" cellspacing="0" border="0"><tr><th>Cuota</th><th>Capital</th><th>Interés</th><th>Saldo</th></tr><table></div>';
+
+  for (let i = 1; i <= plazo; i++) {
+    const interesPago = saldo * tasa;
+    const capitalPago = cuota - interesPago;
+    saldo -= capitalPago;
+
+    // Añadir fila a la tabla
+    tabla += `<div class="tbl-content"><table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td>${i}</td>
+              <td>${Math.round(capitalPago)}</td>
+              <td>${Math.round(interesPago)}</td>
+              <td>${Math.round(saldo)}</td>
+            </tr></table></div>`;
+  }
+
+  // Mostrar resultado de la simulación y tabla de amortización
+  document.getElementById('resultadoSimulacion').innerHTML = `<p>Por un crédito de: $${monto}, pagarías una cuota mensual por un valor de: $${cuota.toFixed(2)}</p>`;
+  document.getElementById('tablaAmortizacion').innerHTML = tabla;
+
+      // Crear el botón
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.innerText = 'Guardar Simulacion';
+    document.body.appendChild(button);
+
+    // Agregar un evento de clic al botón
+    button.addEventListener('click', function() {
+        // Crear un objeto con los datos de la simulación
+        const simulacionData = {
+    monto: monto,
+    tasa: tasa * 12 * 100, // Convertir la tasa a tasa anual
+    plazo: plazo,
+    ingresos: ingresos,
+    cuota: cuota,
+    tipoCredito: document.getElementById('tipoCredito').value // Agregar el valor del tipo de crédito
+};
+
+        // Realizar una solicitud AJAX al archivo guardarSimulacion.php
+        const xhr = new XMLHttpRequest();
+xhr.open('POST', 'php/guardarSimulacion.php', true); // Abrir la conexión primero
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        console.log(xhr.responseText); // Registro de la respuesta del servidor
     }
+};
 
-    // Cálculo de la cuota mensual
-    const cuota = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
-    let saldo = monto;
-    let totalInteres = 0;
-    let totalCapital = 0;
+xhr.send(JSON.stringify(simulacionData)); // Enviar los datos después de abrir la conexión
 
-    // Preparar la tabla de amortización
-    let tabla = '<table><tr><th>Cuota</th><th>Capital</th><th>Interés</th><th>Saldo</th></tr>';
+    //     // Enviar los datos como parámetros codificados en la URL
+    //     const params = new URLSearchParams();
+    //     for (const key in simulacionData) {
+    //         params.append(key, simulacionData[key]);
+    //     }
+    //     xhr.send(params.toString());
+     });
+}
+  </script>
 
-    for (let i = 1; i <= plazo; i++) {
-        const interesPago = saldo * tasa;
-        const capitalPago = cuota - interesPago;
-        saldo -= capitalPago;
-        totalInteres += interesPago;
-        totalCapital += capitalPago;
-
-        // Añadir fila a la tabla
-        tabla += `<tr>
-                    <td>${i}</td>
-                    <td>${capitalPago.toFixed(2)}</td>
-                    <td>${interesPago.toFixed(2)}</td>
-                    <td>${saldo.toFixed(2)}</td>
-                  </tr>`;
-    }
-
-    tabla += '</table>';
-
-    const porcentajeIngresos = cuota / ingresos;
-    let resultado = `<p>Por un crédito de: $${monto}, pagarías una cuota mensual por un valor de: $${cuota.toFixed(2)}</p>`;
-    if (porcentajeIngresos > 0.30) {
-        resultado += `<p style="color: red;">Advertencia: La cuota supera el 30% de tus ingresos mensuales.</p>`;
-    }
-
-    document.getElementById('resultadoSimulacion').innerHTML = resultado;
-    document.getElementById('tablaAmortizacion').innerHTML = tabla;
-  } 
-
-</script>
-
-  <!-- <section class="main-course">
-    <h1>My courses</h1>
-    <div class="course-box">
-      <ul>
-        <li class="active">In progress</li>
-        <li>explore</li>
-        <li>incoming</li>
-        <li>finished</li>
-      </ul>
-      <div class="course">
-        <div class="box">
-          <h3>HTML</h3>
-          <p>80% - progress</p>
-          <button>continue</button>
-          <i class="fab fa-html5 html"></i>
-        </div>
-      </div>
-    </div>
-  </section> -->
-  </section>
-  </div>
   <!-- Principal JavaScript -->
   <script src="js/main.js"></script>
 
