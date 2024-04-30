@@ -20,7 +20,50 @@ inputCredit.addEventListener('input', function () {
     formatCurrency(this);
 });
 
-$(window).on("load resize ", function() {
+$(window).on("load resize ", function () {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-    $('.tbl-header').css({'padding-right':scrollWidth});
-  }).resize();
+    $('.tbl-header').css({ 'padding-right': scrollWidth });
+}).resize();
+
+
+
+function mostrarDatos() {
+    const datosContent = document.querySelector('.datos-content');
+    const simulacionContent = document.querySelector('.simulacion-content');
+    const datosList = document.querySelector('.datos');
+    const simulacionList = document.querySelector('.simulacion');
+
+    datosContent.style.display = 'block';
+    simulacionContent.style.display = 'none';
+    datosList.classList.add('active');
+    simulacionList.classList.remove('active');
+}
+
+function mostrarSimulacion() {
+    const datosContent = document.querySelector('.datos-content');
+    const simulacionContent = document.querySelector('.simulacion-content');
+    const datosList = document.querySelector('.datos');
+    const simulacionList = document.querySelector('.simulacion');
+
+    datosContent.style.display = 'none';
+    simulacionContent.style.display = 'block';
+    datosList.classList.remove('active');
+    simulacionList.classList.add('active');
+}
+
+//   MOSTRAR DATOS DE SIMULACIONES GENERADAS
+function obtenerDatos() {
+    let input = document.getElementById("campo").value
+    let content = document.getElementById("contentTable")
+    let url = "mostrarSimulacion.php"
+    let formData = new FormData()
+    formData.append('campo', input)
+
+    fetch(url, {
+        method: "POST",
+        body: formData
+    }).then(response => response.json())
+        .then(data => {
+            content.innerHTML = data
+        }).catch(err => console.log(err))
+}

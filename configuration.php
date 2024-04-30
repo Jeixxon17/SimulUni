@@ -1,4 +1,5 @@
 <?php
+include('db/database.php');
 session_start();
 
 if (!isset($_SESSION['nombre'])) {
@@ -46,11 +47,11 @@ if (isset($_POST['logout'])) {
                         <i class="fas fa-wallet"></i>
                         <span class="nav-item">Credito Personal</span>
                     </a></li>
-                <li><a href="">
+                <li><a href="creditHouse.php">
                         <i class="fas fa-home"></i>
                         <span class="nav-item">Credito Hipotecario</span>
                     </a></li>
-                <li><a href="">
+                <li><a href="creditCar.php">
                         <i class="fas fa-car"></i>
                         <span class="nav-item">Credito Automotriz</span>
                     </a></li>
@@ -72,18 +73,56 @@ if (isset($_POST['logout'])) {
             <section class="main-course">
                 <div class="course-box">
                     <ul>
-                        <li class="active">Datos Basicos</li>
-                        <li>Simulaciones</li>
+                        <li class="active datos" onclick="mostrarDatos()">Datos Basicos</li>
+                        <li class="simulacion" onclick="mostrarSimulacion()">Simulaciones</li>
                     </ul>
-                    <div class="course">
+                    <div class="datos-content">
                         <label for="">Nombre: <?php echo $_SESSION['nombre']; ?></label>
                         <label for="">Correo: <?php echo $_SESSION['email']; ?></label>
-                        
+
+                    </div>
+
+                    <div class="simulacion-content">
+                        <table>
+                            <thead>
+                                <th>Monto Prestamo</th>
+                                <th>Tasa Interes</th>
+                                <th>Plazo en meses</th>
+                                <th>Total Intereses</th>
+                                <th>Pago Mensual</th>
+                                <th>Tipo Credito</th>
+                                <th>Visualizar</th>
+                                <th>Eliminar</th>
+                            </thead>
+                            <?php
+                            $id_usuario_logueado = $_SESSION['usuario_id'];
+                            $sql = "SELECT s.`monto_prestamo`,s.`tasa_interes_anual`,s.`plazo_meses`,s.`total_intereses`,s.`pago_mensual`,tc.`nombreCredito`FROM`simulaciones` s JOIN`tipo_credito` tc ON s.`tipo_credito_id` = tc.`id_tipoCredito`WHERE s.`id_usuario` = '$id_usuario_logueado';";
+                            $result = mysqli_query($conexionDB, $sql);
+
+                            while ($mostrar = mysqli_fetch_array($result)) {
+
+                            ?>
+                                <tbody class="contentTable" id="contentTable">
+                                    <td><?php echo $mostrar['monto_prestamo'] ?></td>
+                                    <td><?php echo $mostrar['tasa_interes_anual'] ?></td>
+                                    <td><?php echo $mostrar['plazo_meses'] ?></td>
+                                    <td><?php echo $mostrar['total_intereses'] ?></td>
+                                    <td><?php echo $mostrar['pago_mensual'] ?></td>
+                                    <td><?php echo $mostrar['nombreCredito'] ?></td>
+                                    <td><a href=""><i class="fas fa-eye"></i></a></td>
+                                    <td><a href=""><i class="fas fa-trash"></i></a></td>
+                                </tbody>
+                            <?php
+                            }
+                            ?>
+                        </table>
                     </div>
                 </div>
             </section>
         </section>
     </div>
+
+    <script src="js/main.js"></script>
 </body>
 
-</html></span>
+</html>

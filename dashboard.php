@@ -68,19 +68,29 @@ if (isset($_POST['logout'])) {
         <h1>¡Hola <?php echo $_SESSION['nombre']; ?>!</h1>
     </div>
     <section class="main-dashboard">
-        <div class="main-box">
-            <h1>Bienvenido a nuestro simulador de crédito</h1>
-                <div class="box-dashboard">
-                <h3>Esto es OmniCred Simulation</h3>
-                    <p>En nuestro Simulador de Crédito, estamos aquí para ayudarte a tomar decisiones financieras inteligentes y bien informadas. Ya sea que estés buscando un crédito personal, hipotecario o automotriz, nuestra plataforma te brinda las herramientas necesarias para entender tus opciones y encontrar la mejor solución para tus necesidades.</p>
-                    <p>Con nuestra interfaz fácil de usar y nuestros poderosos cálculos, podrás visualizar rápidamente cómo diferentes variables, como el monto del préstamo, la tasa de interés y el plazo, afectan tus pagos mensuales y el total de intereses pagados. ¡Prepárate para tomar el control de tus finanzas!</p>
-                <div class="box">
-                      <a href="creditPerson.php"><i class="fas fa-wallet"></i></a>
-                      <h2>Credito Personal</h2>
-                    </div>
-                </div>
+  <div class="main-box">
+    <h1>Bienvenido a nuestro simulador de crédito</h1>
+    <div class="box-dashboard">
+      <h3>Esto es OmniCred Simulation</h3>
+      <p>En nuestro Simulador de Crédito, estamos aquí para ayudarte a tomar decisiones financieras inteligentes y bien informadas. Ya sea que estés buscando un crédito personal, hipotecario o automotriz, nuestra plataforma te brinda las herramientas necesarias para entender tus opciones y encontrar la mejor solución para tus necesidades.</p>
+      <p>Con nuestra interfaz fácil de usar y nuestros poderosos cálculos, podrás visualizar rápidamente cómo diferentes variables, como el monto del préstamo, la tasa de interés y el plazo, afectan tus pagos mensuales y el total de intereses pagados. ¡Prepárate para tomar el control de tus finanzas!</p>
+      <div class="box-container">
+        <div class="box">
+          <a href="creditPerson.php"><i class="fas fa-wallet"></i></a>
+          <h2>Credito Personal</h2>
         </div>
-    </section>
+        <div class="box">
+          <a href="creditHouse.php"><i class="fas fa-home"></i></a>
+          <h2>Credito Hipotecario</h2>
+        </div>
+        <div class="box">
+          <a href="creditCar.php"><i class="fas fa-car"></i></a>
+          <h2>Credito Automotriz</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </section>
 
       </div>
