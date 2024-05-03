@@ -26,6 +26,10 @@ if (isset($_POST['logout'])) {
     <link rel="shortcut icon" href="img/Omnicred.ico" type="image/x-icon">
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- Sweet Alert CDN Script -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Script Funcionamiento AJAX -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -96,7 +100,7 @@ if (isset($_POST['logout'])) {
                             </thead>
                             <?php
                             $id_usuario_logueado = $_SESSION['usuario_id'];
-                            $sql = "SELECT s.`monto_prestamo`,s.`tasa_interes_anual`,s.`plazo_meses`,s.`total_intereses`,s.`pago_mensual`,tc.`nombreCredito`FROM`simulaciones` s JOIN`tipo_credito` tc ON s.`tipo_credito_id` = tc.`id_tipoCredito`WHERE s.`id_usuario` = '$id_usuario_logueado';";
+                            $sql = "SELECT s.`id`, s.`monto_prestamo`,s.`tasa_interes_anual`,s.`plazo_meses`,s.`total_intereses`,s.`pago_mensual`,tc.`nombreCredito`FROM`simulaciones` s JOIN`tipo_credito` tc ON s.`tipo_credito_id` = tc.`id_tipoCredito`WHERE s.`id_usuario` = '$id_usuario_logueado';";
                             $result = mysqli_query($conexionDB, $sql);
 
                             while ($mostrar = mysqli_fetch_array($result)) {
@@ -110,7 +114,7 @@ if (isset($_POST['logout'])) {
                                     <td><?php echo $mostrar['pago_mensual'] ?></td>
                                     <td><?php echo $mostrar['nombreCredito'] ?></td>
                                     <td><a href=""><i class="fas fa-eye"></i></a></td>
-                                    <td><a href=""><i class="fas fa-trash"></i></a></td>
+                                    <td><a href="php/eliminarSimulacion.php?id=<?php echo $mostrar['id'] ?>;" id="Eliminar"><i class="fas fa-trash"></i></a></td>
                                 </tbody>
                             <?php
                             }
@@ -123,6 +127,7 @@ if (isset($_POST['logout'])) {
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/sweetAlert.js"></script>
 </body>
 
 </html>
