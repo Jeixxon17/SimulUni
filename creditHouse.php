@@ -15,6 +15,7 @@ if (isset($_POST['logout'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +26,10 @@ if (isset($_POST['logout'])) {
   <link rel="shortcut icon" href="img/Omnicred.ico" type="image/x-icon">
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <!-- Sweet Alert CDN Script -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Script Funcionamiento AJAX -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -72,7 +77,7 @@ if (isset($_POST['logout'])) {
       <div class="main-credit">
         <div class="credit">
           <label for="valorPropiedad" class="label-credit">Valor de la Propiedad</label>
-          <p>$</p><input type="number" id="valorPropiedad" class="input-credit">
+          <p>$</p><input type="number" id="valorPropiedad" class="input-credit" onchange="calcularCuotaInicial()">
         </div>
         <div class="credit">
           <label for="cuotaInicialHipotecario" class="label-credit">Cuota Inicial</label>
@@ -94,57 +99,138 @@ if (isset($_POST['logout'])) {
           <input type="number" id="tasaHipotecaria" class="input-credit" min="0.01" step="0.01">
           <p>%</p>
         </div>
+        <input type="hidden" id="tipoCredito" name="tipoCredito" value="2">
         <button type="button" onclick="calcularCreditoHipotecario()">Generar Simulación</button>
-    </div>
-    <div id="resultadoSimulacionHipotecario"></div>
-    <div id="tablaAmortizacionHipotecario"></div>
+      </div>
+      <div id="resultadoSimulacionHipotecario"></div>
+      <div id="tablaAmortizacionHipotecario"></div>
 
+      <!-- Tu JavaScript y otros enlaces aquí -->
+      <script>
+        function calcularCuotaInicial() {
+          const valorPropiedad = parseFloat(document.getElementById('valorPropiedad').value);
+          const cuotaInicial = valorPropiedad * 0.3;
+          document.getElementById('cuotaInicialHipotecario').value = cuotaInicial;
+        }
 
+        function calcularCreditoHipotecario() {
+          const valorPropiedad = parseFloat(document.getElementById('valorPropiedad').value);
+          const cuotaInicial = parseFloat(document.getElementById('cuotaInicialHipotecario').value);
+          const monto = valorPropiedad - cuotaInicial;
+          const tasa = parseFloat(document.getElementById('tasaHipotecaria').value) / 100 / 12;
+          const plazo = parseInt(document.getElementById('plazoHipotecario').value) * 12;
 
-  <!-- Tu JavaScript y otros enlaces aquí -->
-  <script>
+          if (isNaN(valorPropiedad) || isNaN(cuotaInicial) || isNaN(monto) || isNaN(tasa) || isNaN(plazo)) {
+            Swal.fire({
+              icon: "error",
+              title: "Datos vacios",
+              text: "Por favor ingresa datos a los campos"
+            });
+            return;
+          }
 
-function calcularCreditoHipotecario() {
-    const valorPropiedad = parseFloat(document.getElementById('valorPropiedad').value);
-    const cuotaInicial = parseFloat(document.getElementById('cuotaInicialHipotecario').value);
-    const monto = valorPropiedad - cuotaInicial;
-    const tasa = parseFloat(document.getElementById('tasaHipotecaria').value) / 100 / 12;
-    const plazo = parseInt(document.getElementById('plazoHipotecario').value) * 12;
+          if (valorPropiedad < 60000000) {
+            Swal.fire({
+              icon: "error",
+              title: "Valor de propiedad insuficiente",
+              text: "Ingresa por favor un valor mayor o igual a $60 millones!"
+            });
+          } else {
+            const cuota = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
+            let saldo = monto;
+            let tabla = '<table><tr><th>Cuota</th><th>Capital</th><th>Interés</th><th>Saldo</th></tr>';
 
-    if (isNaN(valorPropiedad) || isNaN(cuotaInicial) || isNaN(monto) || isNaN(tasa) || isNaN(plazo)) {
-        alert('Por favor, completa todos los campos con valores válidos.');
-        return;
-    }
+            for (let i = 1; i <= plazo; i++) {
+              const interesPago = saldo * tasa;
+              const capitalPago = cuota - interesPago;
+              saldo -= capitalPago;
+              tabla += `<div class="tbl-content"><table cellpadding="0" cellspacing="0" border="0"><tr>
+            <td>${i}</td>
+            <td>${Math.round(capitalPago)}</td>
+            <td>${Math.round(interesPago)}</td>
+            <td>${Math.round(saldo)}</td>
+          </tr></table></div>`;
+            }
 
-    const cuota = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
-    let saldo = monto;
-    let tabla = '<table><tr><th>Cuota</th><th>Capital</th><th>Interés</th><th>Saldo</th></tr>';
+            document.getElementById('resultadoSimulacionHipotecario').innerHTML = `<p>El valor a pagar del credito total es de: $${monto}, pagarías una cuota mensual por un valor de: $${Math.round(cuota)}</p>`;
+            document.getElementById('tablaAmortizacionHipotecario').innerHTML = tabla;
 
-    for (let i = 1; i <= plazo; i++) {
-        let interesPago = saldo * tasa;
-        let capitalPago = cuota - interesPago;
-        saldo -= capitalPago;
-        tabla += `<tr>
-                    <td>${i}</td>
-                    <td>${capitalPago.toFixed(2)}</td>
-                    <td>${interesPago.toFixed(2)}</td>
-                    <td>${saldo.toFixed(2)}</td>
-                  </tr>`;
-    }
-    tabla += '</table>';
-    document.getElementById('tablaAmortizacionHipotecario').innerHTML = tabla;
-}
+            // Crear el botón de guardar simulación
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.innerText = "Guardar Simulacion";
+            document.body.appendChild(button);
 
-  </script>
+            // Agregar evento de clic al botón
+            button.addEventListener('click', function() {
+              // Mostrar la alerta antes de guardar la simulación
+              Swal.fire({
+                icon: "question",
+                title: "¿Deseas guardar esta simulacion?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Guardar",
+                denyButtonText: `De momento no guardar`
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  // Crear un objeto con los datos de la simulación
+                  const simulacionData = {
+                    monto: monto,
+                    tasa: tasa * 12 * 100, // Convertir la tasa a tasa anual
+                    plazo: plazo,
+                    cuota: cuota,
+                    tipoCredito: document.getElementById('tipoCredito').value // Agregar el valor del tipo de crédito
+                  };
 
-  <!-- Principal JavaScript -->
-  <script src="js/main.js"></script>
+                  // Realizar una solicitud AJAX al archivo guardarSimulacion.php
+                  const xhr = new XMLHttpRequest();
+                  xhr.open('POST', 'php/guardarSimulacion.php', true); // Abrir la conexión primero
+                  xhr.setRequestHeader('Content-Type', 'application/json');
+                  xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                      if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText); // Parsear la respuesta JSON
+                        if (response.success) {
+                          Swal.fire({
+                            icon: 'success',
+                            title: 'Simulacion Guardada Correctamente',
+                          });
+                        } else {
+                          Swal.fire({
+                            icon: 'error',
+                            title: 'Algo ha salido mal :(',
+                            text: response.message,
+                          });
+                        }
+                      } else {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Error',
+                          text: 'There was a problem processing the request.',
+                        });
+                      }
+                    }
+                  };
 
-  <!-- TippyJS -->
-  <script src="https://unpkg.com/popper.js@1"></script>
-  <script src="https://unpkg.com/tippy.js@5"></script>
-  <script src="js/tippy.js"></script>
+                  xhr.send(JSON.stringify(simulacionData)); // Enviar los datos después de abrir la conexión
+                } else if (result.isDenied) {
+                  Swal.fire("Esta simulacion no se guardo", "", "info");
+                }
+              });
+            });
 
+          }
+        }
+      </script>
+
+      <!-- Principal JavaScript -->
+      <script src="js/main.js"></script>
+      <script src="js/sweetAlert.js"></script>
+      <!-- TippyJS -->
+      <script src="https://unpkg.com/popper.js@1"></script>
+      <script src="https://unpkg.com/tippy.js@5"></script>
+      <script src="js/tippy.js"></script>
 </body>
 
 </html>

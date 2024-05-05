@@ -27,9 +27,9 @@ if (isset($_POST['logout'])) {
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <!-- Sweet Alert CDN Script -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Script Funcionamiento AJAX -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -80,12 +80,6 @@ if (isset($_POST['logout'])) {
                         <li class="active datos" onclick="mostrarDatos()">Datos Basicos</li>
                         <li class="simulacion" onclick="mostrarSimulacion()">Simulaciones</li>
                     </ul>
-                    <div class="datos-content">
-                        <label for="">Nombre: <?php echo $_SESSION['nombre']; ?></label>
-                        <label for="">Correo: <?php echo $_SESSION['email']; ?></label>
-
-                    </div>
-
                     <div class="simulacion-content">
                         <table>
                             <thead>
@@ -113,7 +107,7 @@ if (isset($_POST['logout'])) {
                                     <td><?php echo $mostrar['total_intereses'] ?></td>
                                     <td><?php echo $mostrar['pago_mensual'] ?></td>
                                     <td><?php echo $mostrar['nombreCredito'] ?></td>
-                                    <td><a href=""><i class="fas fa-eye"></i></a></td>
+                                    <td><a href="#" class="mostrarDetalles" data-id="<?php echo $mostrar['id']; ?>"><i class="fas fa-eye"></i></a></td>
                                     <td><a href="php/eliminarSimulacion.php?id=<?php echo $mostrar['id'] ?>;" id="Eliminar"><i class="fas fa-trash"></i></a></td>
                                 </tbody>
                             <?php
@@ -121,11 +115,72 @@ if (isset($_POST['logout'])) {
                             ?>
                         </table>
                     </div>
+                    <div class="datos-content">
+                        <label for="">Nombre: <?php echo $_SESSION['nombre']; ?></label>
+                        <label for="">Correo: <?php echo $_SESSION['email']; ?></label>
+
+                    </div>
+
+
                 </div>
             </section>
         </section>
     </div>
+    <!-- Contenedor principal -->
+    <div id="modalContainer" class="modal-container">
+        <!-- Contenido del modal -->
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">Tabla de Amortización</span>
+                <span class="modal-close" onclick="cerrarModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí se insertará la tabla de amortización -->
+                <div id="tablaAmortizacion"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Formato modal
+        // Evento click para los enlaces "Visualizar"
+        $('.mostrarDetalles').click(function(event) {
+            event.preventDefault(); // Evita que el enlace se siga por defecto
 
+            // Obtener el ID de la simulación
+            var idSimulacion = $(this).data('id');
+
+            // Realizar la solicitud AJAX con el ID de la simulación
+            $.ajax({
+                type: 'GET',
+                url: 'creditPerson.php', // Cambiar la URL según sea necesario
+                data: {
+                    id: idSimulacion
+                }, // Pasar el ID de la simulación como parámetro
+                success: function(response) {
+                    // Insertar el resultado de la simulación y la tabla de amortización en el modal
+                    const {
+                        resultadoSimulacion,
+                        tablaAmortizacion
+                    } = response;
+                    $('#modalContainer').find('.modal-body').html(resultadoSimulacion + tablaAmortizacion);
+
+                    // Mostrar el modal
+                    $('#modalContainer').css('display', 'block');
+                }
+            });
+        });
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            document.getElementById("modalContainer").style.display = "none";
+        }
+        // Cuando el usuario hace clic fuera del modal, se cierra
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("modalContainer")) {
+                cerrarModal();
+            }
+        };
+    </script>
     <script src="js/main.js"></script>
     <script src="js/sweetAlert.js"></script>
 </body>

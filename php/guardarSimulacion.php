@@ -3,8 +3,7 @@ session_start();
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['nombre'])) {
-    echo '<script>alert("No se ha iniciado sesión");</script>';
-    header("location: index.php");
+    header("HTTP/1.1 401 Unauthorized");
     exit();
 }
 
@@ -18,7 +17,6 @@ $simulacionData = json_decode($jsonData, true);
 $monto = $simulacionData['monto'];
 $tasa = $simulacionData['tasa'];
 $plazo = $simulacionData['plazo'];
-$ingresos = $simulacionData['ingresos'];
 $cuota = $simulacionData['cuota'];
 $tipoCredito = $simulacionData['tipoCredito'];
 
@@ -35,13 +33,19 @@ $frecuenciaPago = 'Mensual';
 $stmt->bind_param("iddsiiddi", $id_usuario, $monto, $tasa, $plazo, $frecuenciaPago, $total_intereses, $abono_capital, $cuota, $tipoCredito);
 
 // Ejecutar la consulta
+$response = array();
 if ($stmt->execute()) {
-    echo '<script>alert("Simulación guardada exitosamente");</script>';
+    $response['success'] = true;
 } else {
-    echo "Error al guardar la simulación";
+    $response['success'] = false;
+    $response['message'] = "Error al guardar la simulación";
 }
 
 // Cerrar la conexión y liberar recursos
 $stmt->close();
 $conexionDB->close();
+
+// Devolver la respuesta en formato JSON
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>

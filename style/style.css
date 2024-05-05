@@ -513,3 +513,52 @@ td{
 .simulacion-content{
   display: none;
 }
+
+ /* Estilos para el contenedor principal */
+ .modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Estilos para el contenido del modal */
+.modal {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Estilos para el encabezado del modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Estilos para el título del modal */
+.modal-title {
+  font-weight: bold;
+}
+
+/* Estilos para el botón de cerrar del modal */
+.modal-close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Estilos para el cuerpo del modal */
+.modal-body {
+  padding-top: 20px;
+}
